@@ -109,6 +109,7 @@ const tst = async (description, func, parameters, expected_result) => {
 
 	try {
 		result = await func(...parameters);
+		console.log("result:", result);
 	} catch (err) {
 		console.error("[113] test unit error:", err);
 		result = err.message;
@@ -464,3 +465,355 @@ let record = {
 	country: "Distan",
 	address: "Elm tree road 555",
 };
+
+/*
+result: { key: '22756-Adam Smith', count: 1 }
+OK: Post a record
+result: 1
+OK: Create a sequence
+result: 2
+OK: Increment sequence
+result: { key: '22756-Adam Smith', count: 1 }
+OK: Repost a record
+result: {
+  count: 1,
+  key: [ '22756-Adam Smith' ],
+  result: [
+    {
+      id: '22756',
+      name: 'Adam Smith',
+      title: 'developer',
+      email: 'adam@smith.com',
+      phone: '+95 555 12345',
+      zip: 'DK4321',
+      country: 'Distan',
+      address: 'Elm tree road 555',
+      test: 27
+    }
+  ]
+}
+OK: Count record
+result: { key: '1', count: 1 }
+OK: Post a record with empty key
+result: { key: '2-key', count: 1 }
+OK: Post a record with auto incremented value added to key
+result: { key: '3', count: 1 }
+OK: Post a record with auto incremented key only
+[113] test unit error: Error: No valid collection name given
+    at Rocketstore.post (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/src/index.js:134:35)
+    at tst (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/test/test.js:56:18)
+    at testcases (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/test/test.js:194:8)
+OK: Post a record with empty collection
+[113] test unit error: Error: Collection name contains illegal characters (For a javascript identifier)
+    at Rocketstore.post (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/src/index.js:137:9)
+    at tst (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/test/test.js:56:18)
+    at testcases (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/test/test.js:196:8)
+OK: Post a record with collection name that contains illegal chars
+result: {
+  key: '18c64257-fd76-4000-8490-04f60e6030000000000000000-key-value',
+  count: 1
+}
+OK: Post a record with GUID added to key
+result: {
+  key: '18c64257-fd80-4000-84a3-997e5ff310000000000000000-4',
+  count: 1
+}
+OK: Post a record with GUID key only
+[113] test unit error: Error: Collection name contains illegal characters (For a javascript identifier)
+    at Rocketstore.post (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/src/index.js:137:9)
+    at tst (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/test/test.js:56:18)
+    at testcases (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/test/test.js:210:8)
+OK: Post invalid collection
+result: { key: 'x<|>":&\n22758-Adam Smith', count: 1 }
+OK: Post invalid key
+result: {
+  count: 1,
+  key: [ '22756-Adam Smith' ],
+  result: [
+    {
+      id: '22756',
+      name: 'Adam Smith',
+      title: 'developer',
+      email: 'adam@smith.com',
+      phone: '+95 555 12345',
+      zip: 'DK4321',
+      country: 'Distan',
+      address: 'Elm tree road 555',
+      test: 27
+    }
+  ]
+}
+OK: Get with exact key
+result: { count: 0 }
+OK: Get exact key no hit (no cash)
+result: {
+  count: 1,
+  key: [ '22756-Adam Smith' ],
+  result: [
+    {
+      id: '22756',
+      name: 'Adam Smith',
+      title: 'developer',
+      email: 'adam@smith.com',
+      phone: '+95 555 12345',
+      zip: 'DK4321',
+      country: 'Distan',
+      address: 'Elm tree road 555',
+      test: 27
+    }
+  ]
+}
+OK: Get with wildcard in key
+result: { count: 0 }
+OK: Get exact key no hit
+result: { count: 0 }
+OK: Get wildcard in key with no hit
+result: {
+  count: 7,
+  key: [
+    '1',
+    '18c64257-fd76-4000-8490-04f60e6030000000000000000-key-value',
+    '18c64257-fd80-4000-84a3-997e5ff310000000000000000-4',
+    '2-key',
+    '22756-Adam Smith',
+    '3',
+    'x<|>":&\n22758-Adam Smith'
+  ],
+  result: [
+    {
+      id: '22756',
+      name: 'Adam Smith',
+      title: 'developer',
+      email: 'adam@smith.com',
+      phone: '+95 555 12345',
+      zip: 'DK4321',
+      country: 'Distan',
+      address: 'Elm tree road 555',
+      test: 27
+    },
+    {
+      id: '22756',
+      name: 'Adam Smith',
+      title: 'developer',
+      email: 'adam@smith.com',
+      phone: '+95 555 12345',
+      zip: 'DK4321',
+      country: 'Distan',
+      address: 'Elm tree road 555',
+      test: 27
+    },
+    {
+      id: '22756',
+      name: 'Adam Smith',
+      title: 'developer',
+      email: 'adam@smith.com',
+      phone: '+95 555 12345',
+      zip: 'DK4321',
+      country: 'Distan',
+      address: 'Elm tree road 555',
+      test: 27
+    },
+    {
+      id: '22756',
+      name: 'Adam Smith',
+      title: 'developer',
+      email: 'adam@smith.com',
+      phone: '+95 555 12345',
+      zip: 'DK4321',
+      country: 'Distan',
+      address: 'Elm tree road 555',
+      test: 27
+    },
+    {
+      id: '22756',
+      name: 'Adam Smith',
+      title: 'developer',
+      email: 'adam@smith.com',
+      phone: '+95 555 12345',
+      zip: 'DK4321',
+      country: 'Distan',
+      address: 'Elm tree road 555',
+      test: 27
+    },
+    {
+      id: '22756',
+      name: 'Adam Smith',
+      title: 'developer',
+      email: 'adam@smith.com',
+      phone: '+95 555 12345',
+      zip: 'DK4321',
+      country: 'Distan',
+      address: 'Elm tree road 555',
+      test: 27
+    },
+    {
+      id: 22758,
+      name: 'Adam Smith',
+      title: 'developer',
+      email: 'adam@smith.com',
+      phone: '+95 555 12345',
+      zip: 'DK4321',
+      country: 'Distan',
+      address: 'Elm tree road 555',
+      test: 27
+    }
+  ]
+}
+OK: Get a list
+result: { count: 4, key: [ 'first_seq', 'lockfile', 'person', 'person_seq' ] }
+OK: Get a list of collections and sequences
+result: { count: 2, key: [ 'first_seq', 'person_seq' ] }
+OK: Get list of sequences with wildcard
+[113] test unit error: Error: Collection name contains illegal characters (For a javascript identifier)
+    at Rocketstore.post (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/src/index.js:137:9)
+    at tst (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/test/test.js:56:18)
+    at testcases (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/test/test.js:253:8)
+OK: Post collection as number 
+[113] test unit error: Error: Collection name contains illegal characters (For a javascript identifier)
+    at Rocketstore.get (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/src/index.js:209:9)
+    at tst (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/test/test.js:56:18)
+    at testcases (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/test/test.js:260:8)
+OK: Get collections as a number
+result: true
+OK: Get order ascending
+result: { count: 4, key: [ 'p1', 'p4', 'p2', 'p3' ] }
+OK: Get keys
+result: true
+OK: Get keys in descending order
+result: true
+OK: Get keys in ascending order
+result: { count: 4 }
+OK: Get record count
+result: { count: 3, key: [ 'p1', 'p4', 'p3' ], result: [ 1, 4, 3 ] }
+OK: Get manually deleted record where keys != cache
+result: {
+  count: 9,
+  key: [
+    '1',
+    '18c64257-fd76-4000-8490-04f60e6030000000000000000-key-value',
+    '18c64257-fd80-4000-84a3-997e5ff310000000000000000-4',
+    '2-key',
+    '3',
+    'x<|>":&\n22758-Adam Smith',
+    'p1',
+    'p4',
+    'p3'
+  ],
+  result: [
+    {
+      id: '22756',
+      name: 'Adam Smith',
+      title: 'developer',
+      email: 'adam@smith.com',
+      phone: '+95 555 12345',
+      zip: 'DK4321',
+      country: 'Distan',
+      address: 'Elm tree road 555',
+      test: 27
+    },
+    {
+      id: '22756',
+      name: 'Adam Smith',
+      title: 'developer',
+      email: 'adam@smith.com',
+      phone: '+95 555 12345',
+      zip: 'DK4321',
+      country: 'Distan',
+      address: 'Elm tree road 555',
+      test: 27
+    },
+    {
+      id: '22756',
+      name: 'Adam Smith',
+      title: 'developer',
+      email: 'adam@smith.com',
+      phone: '+95 555 12345',
+      zip: 'DK4321',
+      country: 'Distan',
+      address: 'Elm tree road 555',
+      test: 27
+    },
+    {
+      id: '22756',
+      name: 'Adam Smith',
+      title: 'developer',
+      email: 'adam@smith.com',
+      phone: '+95 555 12345',
+      zip: 'DK4321',
+      country: 'Distan',
+      address: 'Elm tree road 555',
+      test: 27
+    },
+    {
+      id: '22756',
+      name: 'Adam Smith',
+      title: 'developer',
+      email: 'adam@smith.com',
+      phone: '+95 555 12345',
+      zip: 'DK4321',
+      country: 'Distan',
+      address: 'Elm tree road 555',
+      test: 27
+    },
+    {
+      id: 22758,
+      name: 'Adam Smith',
+      title: 'developer',
+      email: 'adam@smith.com',
+      phone: '+95 555 12345',
+      zip: 'DK4321',
+      country: 'Distan',
+      address: 'Elm tree road 555',
+      test: 27
+    },
+    1,
+    4,
+    3
+  ]
+}
+OK: Get manually deleted record where keys == cache
+delete all persons
+add person No Smith
+add person No Smith add no valid json
+result: { count: 1, key: [ 'No Smith' ], result: [ '' ] }
+OK: Get invalid JSON in file
+result: { count: 1 }
+OK: Delete record with exact key
+result: { count: 2 }
+OK: Delete collection
+result: { count: 0 }
+OK: Delete nonexistent collection
+result: { count: 2 }
+OK: Delete collection with wildcard
+[113] test unit error: Error: Collection name contains illegal characters (For a javascript identifier)
+    at Rocketstore.get (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/src/index.js:209:9)
+    at Rocketstore.delete (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/src/index.js:382:21)
+    at tst (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/test/test.js:56:18)
+    at testcases (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/test/test.js:334:8)
+OK: Delete numeric collection
+result: { count: 1 }
+OK: Delete sequence
+result: { count: 1 }
+OK: Delete sequence
+[113] test unit error: Error: Collection name contains illegal characters (For a javascript identifier)
+    at Rocketstore.get (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/src/index.js:209:9)
+    at Rocketstore.delete (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/src/index.js:382:21)
+    at tst (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/test/test.js:56:18)
+    at testcases (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/test/test.js:344:8)
+OK: Delete unsafe ../*
+[113] test unit error: Error: Collection name contains illegal characters (For a javascript identifier)
+    at Rocketstore.get (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/src/index.js:209:9)
+    at Rocketstore.delete (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/src/index.js:382:21)
+    at tst (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/test/test.js:56:18)
+    at testcases (file:///Users/too-off/www_211/211/_APIS_/2023-aws-gateway-lambda/Auth/libs/rocket-store-node/test/test.js:351:8)
+OK: Delete unsafe ~/*
+result: {
+  count: 4,
+  key: [ '0', '1', '2', '3' ],
+  result: [ { id: 0 }, { id: 1 }, { id: 2 }, { id: 3 } ]
+}
+OK: Post test asynchronous integrity of records
+result: { count: 1 }
+OK: Delete database
+Clean up: Data storage area deleted.
+*/
